@@ -2,36 +2,33 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS-22'
+        nodejs 'NodeJS-22do'
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Clone Code') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/harry15032004-ctrl/dev2.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                dir('Documents/dev/welcome-react') {
-                    bat 'npm install'
-                }
+                bat 'npm install'
             }
         }
 
         stage('Build React App') {
             steps {
-                dir('Documents/dev/welcome-react') {
-                    bat 'npm run build'
-                }
+                bat 'npm run build'
             }
         }
     }
 
     post {
         success {
-            echo 'Build successful ✅'
+            echo 'React build successful 🎉'
         }
         failure {
             echo 'Build failed ❌'
